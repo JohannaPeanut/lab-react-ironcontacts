@@ -25,6 +25,11 @@ function App() {
     setContacts(newArray.sort((a,b) => a.name.localeCompare(b.name) ))
   }
 
+  const handleContactRemoval = (id) => {
+    const newArray = contacts.filter((contact) => contact.id !== id)
+    setContacts(newArray)
+  }
+
   return <div className="App">
     <h1>IronContacts</h1>
     <button onClick={handleContactAddition}>Add random Contact</button>
@@ -38,8 +43,9 @@ function App() {
               <td><img className="contact-pic" src={contact.pictureUrl} alt="" /></td>
               <td>{contact.name}</td>
               <td>{contact.popularity.toFixed(2)}</td>
-              {contact.wonOscar && <td>'🏆' </td>}
-              {contact.wonEmmy && <td>'🏆'</td>}
+              {contact.wonOscar ? <td>🏆 </td> : <td> </td>}
+              {contact.wonEmmy ? <td>🏆</td> : <td> </td>}
+              <td><button onClick={() => handleContactRemoval(contact.id)}>Delete</button></td>
           </tr>
           
           );
